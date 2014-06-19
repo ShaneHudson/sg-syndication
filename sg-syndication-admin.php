@@ -32,13 +32,13 @@ class sgSyndicationAdmin {
         $services = array(
 
             // set up twitter.com
-            array(  
+            array(
                 'name'      => 'twitter',           // a unique name for this service
                 'service'   => 'twitter.com',       // string indicating a service supported by this plugin (currently supported: twitter.com, flickr.com)
                 'title'     => 'Twitter',           // name of the service as shown to the user
                 'type'      => 'text',              // string indicating the type of service (currently supported: text, photo)
                 'intro'     =>                      // intro text shown on the admin settings page
-                                'Set up a new application on <a href="https://dev.twitter.com/apps" target="_blank">dev.twitter.com/apps</a>, give it read&write access rights and then generate API key and secret (API keys > Application settings) as well as Access token and Access token secret (API keys > Your access token).',  
+                                'Set up a new application on <a href="https://dev.twitter.com/apps" target="_blank">dev.twitter.com/apps</a>, give it read&write access rights and then generate API key and secret (API keys > Application settings) as well as Access token and Access token secret (API keys > Your access token).',
                 'fields'    => array(               // array of fields that are stored in the database (filled in on the settings page)
                     array(
                         'name'          => 'alias',                                 // field id
@@ -79,10 +79,10 @@ class sgSyndicationAdmin {
             ),
 
             // set up flickr.com
-            array( 
-                'name'      => 'flickr',  
+            array(
+                'name'      => 'flickr',
                 'service'   => 'flickr.com',
-                'title'     => 'Flickr',  
+                'title'     => 'Flickr',
                 'type'      => 'photo',
                 'intro'     => 'Getting the API access variables from Flickr is somehat complicated. First create a Flickr app at <a href="https://secure.flickr.com/services/apps/create/apply/">flickr.com/services/apps/create/apply/</a>, which will give you the API key and secret. Then, with the help of the tool at <a href="http://phpflickr.com/tools/auth/">phpflickr.com/tools/auth/</a>, retrieve the required (permanent) API token.',
                 'fields'    => array(
@@ -214,7 +214,7 @@ class sgSyndicationAdmin {
             '1',                            // is_family (optional): Set to 0 for no, 1 for yes. Specifies who can view the photo.
             '1',                            // safety_level (optional): Set to 1 for Safe, 2 for Moderate, or 3 for Restricted.
             '1',                            // content_type (optional): Set to 1 for Photo, 2 for Screenshot, or 3 for Other.
-            '2'                             // hidden (optional): Set to 1 to keep the photo in global search results, 2 to hide from public searches. 
+            '2'                             // hidden (optional): Set to 1 to keep the photo in global search results, 2 to hide from public searches.
         );
 
         // by default, api returns the photo id, which is a very long number
@@ -258,7 +258,7 @@ class sgSyndicationAdmin {
         // require codebird
         require_once( dirname( __FILE__ ) . '/codebird-php/src/codebird.php');
 
-        // establish api connection         
+        // establish api connection
         \Codebird\Codebird::setConsumerKey( get_option( 'sg_syndication_twitter_key' ) , get_option( 'sg_syndication_twitter_secret' ) );
         $cb = \Codebird\Codebird::getInstance();
         $cb->setToken( get_option( 'sg_syndication_twitter_token' ), get_option( 'sg_syndication_twitter_tokensecret' ) );
@@ -317,30 +317,30 @@ class sgSyndicationAdmin {
     /**
     * Adds a meta box
     */
-    public function add_the_meta_box() {  
+    public function add_the_meta_box() {
 
 
-        add_meta_box(  
+        add_meta_box(
             'sg_syndication_metabox',                         // $id
-            'Syndication',                              // $title  
-            array( 'sgSyndicationAdmin', 'render_meta_box' ), // $callback  
-            'post',                                     // $page  
-            'side',                                     // $context  
-            'high'                                      // $priority  
+            'Syndication',                              // $title
+            array( 'sgSyndicationAdmin', 'render_meta_box' ), // $callback
+            'post',                                     // $page
+            'side',                                     // $context
+            'high'                                      // $priority
         );
 
 
-    }  
+    }
 
 
     /**
     * Fills the data box
     */
-    public function render_meta_box( $post ) {  
+    public function render_meta_box( $post ) {
         global $prefix, $services;
 
 
-        // Use nonce for verification  
+        // Use nonce for verification
         wp_nonce_field( 'sg_syndication_metabox', 'sg_syndication_metabox_nonce' );
 
         // loop through all the services
@@ -403,7 +403,7 @@ class sgSyndicationAdmin {
                         onClick="
                             jQuery(\'#' . $prefix . '_' . $service['name'] .'_ui\').toggle();
                             jQuery(\'#sg_syndication_tip\').show();
-                            jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').html( jQuery(\'#title\').val() + \' ' . wp_get_shortlink() . '\' );
+                            jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').html( jQuery(\'#title\').val() + \' (' . get_the_ID() . ')\' );
                             jQuery(\'#' . $prefix . '_' . $service['name'] .'_counter span\').html(jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').val().length);
                         "
                     ';
@@ -434,7 +434,7 @@ class sgSyndicationAdmin {
                     <div id="' . $prefix . '_' . $service['name'] .'_ui" style="display:none;">
                 ';
                 if ( $service['type'] == 'text' ) {
-                    echo '                
+                    echo '
                         <p style="margin-bottom:0;">
                         <textarea id="' . $prefix . '_' . $service['name'] .'_text"
                             name="' . $prefix . '_' . $service['name'] .'_text"
@@ -460,7 +460,7 @@ class sgSyndicationAdmin {
                             name="' . $prefix . '_' . $service['name'] .'_title"
                             style="margin-left:8%; width:92%;"
                         />
-                        </p>                        
+                        </p>
                         <img
                             id="' . $prefix . '_' . $service['name'] .'_img"
                             style="margin-left:8%; width:92%; height:auto;"
