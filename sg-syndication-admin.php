@@ -403,7 +403,7 @@ class sgSyndicationAdmin {
                         onClick="
                             jQuery(\'#' . $prefix . '_' . $service['name'] .'_ui\').toggle();
                             jQuery(\'#sg_syndication_tip\').show();
-                            jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').html( jQuery(\'#title\').val() + \'' . substr($(".wp-editor-area").val(),0,134) . ' (' . get_the_ID() . ')\' );
+                            jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').html( jQuery(\'#title\').val() + \'' . substr(jQuery(".wp-editor-area").val(),0,134) . ' (' . get_the_ID() . ')\' );
                             jQuery(\'#' . $prefix . '_' . $service['name'] .'_counter span\').html(jQuery(\'#' . $prefix . '_' . $service['name'] .'_text\').val().length);
                         "
                     ';
